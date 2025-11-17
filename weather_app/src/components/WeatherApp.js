@@ -70,7 +70,7 @@ const WeatherApp = () => {
               className="weather-icon"
             />
             <div className="temperature">
-=              {Math.round(weather.current.temp_c)}°C
+              = {Math.round(weather.current.temp_c)}°C
             </div>
           </div>
           <div className="weather-details">
@@ -79,9 +79,9 @@ const WeatherApp = () => {
             </p>
             <div className="weather-stats">
               <div>Feels like: {weather.current.feelslike_c}°C</div>
-        <div>Humidity: {weather.current.humidity}%</div>
-        <div>Wind: {weather.current.wind_kph} kph</div>
-        <div>Pressure: {weather.current.pressure_mb} hPa</div>
+              <div>Humidity: {weather.current.humidity}%</div>
+              <div>Wind: {weather.current.wind_kph} kph</div>
+              <div>Pressure: {weather.current.pressure_mb} hPa</div>
             </div>
           </div>
         </div>
