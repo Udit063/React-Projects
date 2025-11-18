@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { act, createContext, useContext, useReducer } from "react";
 
 const CartContext = createContext();
 
@@ -73,7 +73,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = () => {
     dispatch({ type: "CLEAR_CART" });
   };
-  
+
   const getCartTotal = () => {
     return cart.items.reduce(
       (total, item) => total + item.price * item.quantity,
