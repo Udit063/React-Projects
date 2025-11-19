@@ -1,34 +1,94 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* App global styles */
+:root{
+  --bg:#f6f8fb;
+  --surface:#ffffff;
+  --muted:#6b7280;
+  --text:#0f172a;
+  --primary:#4f46e5;
+  --primary-600:#4338ca;
+  --danger:#ef4444;
+  --border:#e6e9ef;
+  --radius:12px;
 }
-body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  color: #333;
-  line-height: 1.6;
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%}
+body{
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg, var(--bg), #ffffff 30%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
 }
-.App {
-  min-height: 100vh;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+.App{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
 }
-/* Scrollbar Styling */
-::-webkit-scrollbar {
-  width: 8px;
+
+/* Top navigation */
+.app-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:14px 18px;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 4px 16px rgba(15,23,42,0.03);
 }
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
+.nav-brand h1{ font-size:18px; margin:0; font-weight:700 }
+.nav-subtitle{ display:block; font-size:12px; color:var(--muted); margin-top:2px }
+
+.nav-links{ display:flex; gap:8px }
+.nav-links button{
+  background:transparent;
+  border:1px solid transparent;
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  color:var(--muted);
 }
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 4px;
+.nav-links button:hover{ background: #f3f4f6 }
+.nav-links button.active{
+  background:linear-gradient(90deg,var(--primary),#ec4899);
+  color:white; border-color:transparent; box-shadow:0 6px 18px rgba(79,70,229,0.12)
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
+
+/* Main area */
+.app-main{
+  padding:20px;
+  flex:1;
+  width:100%;
+  max-width:1200px;
+  margin:18px auto;
+}
+
+/* Simple container utility */
+.container{ max-width:1200px; margin:0 auto; padding:0 18px }
+
+/* Buttons common modifiers */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 14px; border-radius:10px; cursor:pointer; border:0; font-weight:600 }
+.btn-ghost{ background:transparent; color:var(--text); border:1px solid var(--border) }
+.btn-primary{ background:var(--primary); color:white }
+.btn-danger{ background:var(--danger); color:white }
+
+/* Footer */
+.app-footer{ text-align:center; padding:18px; color:var(--muted); font-size:13px }
+
+/* Small helpers */
+.muted{ color:var(--muted) }
+.code{ font-family:monospace; background:#fbf7f0; padding:4px 8px; border-radius:6px }
+
+/* Scrollbar styling for modern browsers */
+*::-webkit-scrollbar{ width:10px; height:10px }
+*::-webkit-scrollbar-thumb{ background:rgba(15,23,42,0.12); border-radius:10px }
+
+@media (max-width:720px){
+  .nav-brand h1{ font-size:16px }
+  .nav-links button{ padding:8px 10px }
+  .app-main{ padding:12px }
 }
