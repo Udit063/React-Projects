@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useForm } from "../context/FormContext";
 const FormNavigation = () => {
   const {
     currentStep,
@@ -8,16 +8,16 @@ const FormNavigation = () => {
     validateCurrentStep,
     submitForm,
     resetForm,
+    setView,
     formData,
     isSubmitted,
+    loading,
   } = useForm();
-
   const handleNext = () => {
     if (validateCurrentStep()) {
       nextStep();
     }
   };
-
   const handleSubmit = async () => {
     if (!formData.confirmation) {
       alert(
@@ -27,29 +27,38 @@ const FormNavigation = () => {
     }
     const success = await submitForm();
     if (!success) {
-      alert("Please fix errors before submitting.");
+      alert("Please fix the errors before submitting.");
     }
   };
-
-  const handleReset = () => {
-    if (
-      window.confirm(
-        "Are you sure you want to reset the form? All data will be lost."
-      )
-    );
-    resetForm();
-  };
-
+  // Remove the unused handleReset function or use it
+  // Since resetForm is used in the success state, we'll keep it but remove the unused variable;
   if (isSubmitted) {
     return (
       <div className="form-navigation">
-        <button type="button" onClick={resetForm} className="btn btn-primary">
-          Start New Form
+        <button
+          type="button"
+          onClick={() => setView("dashboard")}
+          className="btn btn-secondary"
+        >
+          ← Back to Dashboard
+        </button>
+        <button
+          type="button"
+          onClick={resetForm} // Using resetForm directly here
+          className="btn btn-primary"
+        >
+          Create New Form
         </button>
       </div>
     );
   }
-
+  if (loading) {
+    return (
+      <div className="form-navigation">
+        <div className="loading-text">Saving to AWS DynamoDB...</div>
+      </div>
+    );
+  }
   return (
     <div className="form-navigation">
       <div className="nav-left">
@@ -58,13 +67,18 @@ const FormNavigation = () => {
             type="button"
             onClick={prevStep}
             className="btn btn-secondary"
+            disabled={loading}
           >
             ← Previous
           </button>
         )}
 
-        <button type="button" onClick={handleReset} className="btn btn-text">
-          Reset Form
+        <button
+          type="button"
+          onClick={() => setView("dashboard")}
+          className="btn btn-text"
+        >
+          ← Dashboard
         </button>
       </div>
       <div className="nav-right">
@@ -73,6 +87,7 @@ const FormNavigation = () => {
             type="button"
             onClick={handleNext}
             className="btn btn-primary"
+            disabled={loading}
           >
             Next →
           </button>
@@ -81,14 +96,13 @@ const FormNavigation = () => {
             type="button"
             onClick={handleSubmit}
             className="btn btn-success"
-            disabled={!formData.confirmation}
+            disabled={!formData.confirmation || loading}
           >
-            Submit Form
+            {loading ? "Submitting..." : "Submit to DynamoDB"}
           </button>
         )}
       </div>
     </div>
   );
 };
-
 export default FormNavigation;
