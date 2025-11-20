@@ -10,6 +10,7 @@ const Login = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
@@ -17,6 +18,7 @@ const Login = () => {
       navigate(from, { replace: true });
     }
   }, [user, navigate, location]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -32,11 +34,13 @@ const Login = () => {
 
     setIsLoading(false);
   };
+
   // Demo credentials helper
   const fillDemoCredentials = () => {
     setEmail("user@example.com");
     setPassword("password");
   };
+  
   return (
     <div className="login-container">
       <div className="login-form">

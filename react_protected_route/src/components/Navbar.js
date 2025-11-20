@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
   const { user, logout, isTokenExpiringSoon } = useAuth();
+
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       logout();

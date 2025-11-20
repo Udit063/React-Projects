@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 const Dashboard = () => {
   const { user, isTokenExpiringSoon, refreshToken, logout } = useAuth();
   const [showTokenWarning, setShowTokenWarning] = useState(false);
+
   useEffect(() => {
     // Check token expiry on component mount
     if (isTokenExpiringSoon()) {
       setShowTokenWarning(true);
     }
+
     // Check token expiry every minute
     const interval = setInterval(() => {
       if (isTokenExpiringSoon()) {
         setShowTokenWarning(true);
       }
     }, 60000);
+
     return () => clearInterval(interval);
   }, [isTokenExpiringSoon]);
+
   const handleRefreshToken = async () => {
     const success = await refreshToken();
     if (success) {
@@ -26,11 +30,13 @@ const Dashboard = () => {
       logout();
     }
   };
+
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to logout?")) {
       logout();
     }
   };
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">

@@ -1,6 +1,7 @@
 // src/context/AuthContext.js
 import React, { createContext, useState, useContext, useEffect } from "react";
 const AuthContext = createContext();
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -8,9 +9,11 @@ export const useAuth = () => {
   }
   return context;
 };
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
   // Check for existing token on app start
   useEffect(() => {
     const checkAuth = () => {
@@ -33,6 +36,7 @@ export const AuthProvider = ({ children }) => {
     };
     checkAuth();
   }, []);
+
   // Mock login function - replace with actual API call
   const login = async (email, password) => {
     try {
@@ -73,6 +77,7 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+  
   const logout = () => {
     // Clear localStorage
     localStorage.removeItem("token");
@@ -84,6 +89,7 @@ export const AuthProvider = ({ children }) => {
 
     console.log("User logged out");
   };
+
   // Check if token is about to expire (within 5 minutes)
   const isTokenExpiringSoon = () => {
     const tokenExpiry = localStorage.getItem("tokenExpiry");
@@ -91,6 +97,7 @@ export const AuthProvider = ({ children }) => {
     const timeUntilExpiry = parseInt(tokenExpiry) - Date.now();
     return timeUntilExpiry < 5 * 60 * 1000; // 5 minutes
   };
+
   // Refresh token - mock function
   const refreshToken = async () => {
     try {
@@ -106,6 +113,7 @@ export const AuthProvider = ({ children }) => {
       return false;
     }
   };
+  
   const value = {
     user,
     login,

@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 const ProtectedRoute = ({ children, requiredRole = null }) => {
   const { user, loading, isTokenExpiringSoon } = useAuth();
   const location = useLocation();
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -12,10 +13,12 @@ const ProtectedRoute = ({ children, requiredRole = null }) => {
       </div>
     );
   }
+
   // Redirect to login if not authenticated
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
+
   // Check role-based access
   if (requiredRole && user.role !== requiredRole) {
     return (
@@ -25,6 +28,7 @@ const ProtectedRoute = ({ children, requiredRole = null }) => {
       </div>
     );
   }
+  
   // Show token expiry warning
   if (isTokenExpiringSoon()) {
     console.warn("Token expiring soon");
